@@ -33,6 +33,7 @@ const operate = function (operator, x, y) {
     return fn(x, y)
 }
 
+
 const displayUpdate = function (input) {
     if (input == 'add' || input == 'multiply' || input == 'divide' || input == 'subtract') {
         operation = input;
@@ -59,12 +60,24 @@ const clearCalculator = function () {
 
 clear.addEventListener('click', clearCalculator)
 equals.addEventListener('click', () => {
-    let result = operate(operation, x, y).toFixed(5);
-    x = result;
-    y = ''
-    operation = ''
-    document.getElementById("display").innerHTML = result;
-    console.log(result);
+
+    if (x && y && operation) {
+        if (y == '0' && operation == 'divide') {
+            document.getElementById("display").innerHTML = "Can't divide by zero, you fool";
+        }
+        else {
+            let result = Math.round(1e4 * operate(operation, x, y)) / 1e4;
+            x = result;
+            y = ''
+            operation = ''
+            document.getElementById("display").innerHTML = result;
+            console.log(result);
+        }
+
+
+    }
+
+
 })
 
 
