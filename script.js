@@ -10,17 +10,6 @@ let x = "";
 let y = "";
 let operation = "";
 
-
-function executeFunctionByName(functionName, context /*, args */) {
-    var args = Array.prototype.slice.call(arguments, 2);
-    var namespaces = functionName.split(".");
-    var func = namespaces.pop();
-    for (var i = 0; i < namespaces.length; i++) {
-        context = context[namespaces[i]];
-    }
-    return context[func].apply(context, args);
-}
-
 function add(x, y) {
     return x + y
 }
@@ -70,7 +59,10 @@ const clearCalculator = function () {
 
 clear.addEventListener('click', clearCalculator)
 equals.addEventListener('click', () => {
-    let result = operate(operation, x, y);
+    let result = operate(operation, x, y).toFixed(5);
+    x = result;
+    y = ''
+    operation = ''
     document.getElementById("display").innerHTML = result;
     console.log(result);
 })
